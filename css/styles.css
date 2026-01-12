@@ -309,15 +309,24 @@ a {
     margin-top: var(--spacing-lg);
 }
 
-/* Estilos para el widget de Elfsight */
-.gallery-grid .elfsight-app {
-    width: 100%;
-    min-height: 400px;
+/* Cuando hay un widget de Elfsight, quitar el grid para que use su diseño nativo */
+.gallery-grid:has([class*="elfsight-app"]) {
+    display: block;
+    grid-template-columns: none;
 }
 
-/* Asegurar que el widget de Elfsight se adapte al contenedor */
-.gallery-grid > .elfsight-app {
-    grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+/* Alternativa para navegadores que no soportan :has() */
+.gallery-grid.elfsight-container {
+    display: block;
+    grid-template-columns: none;
+}
+
+/* Estilos para el widget de Elfsight */
+.gallery-grid .elfsight-app,
+.gallery-grid [class*="elfsight-app"] {
+    width: 100% !important;
+    min-height: 400px;
+    display: block;
 }
 
 .gallery-item {

@@ -122,6 +122,9 @@ function cargarWidgetTerceros() {
         // El script se carga en el HTML, solo necesitamos el div
         galleryContainer.innerHTML = `<div class="elfsight-app-${INSTAGRAM_CONFIG.widgetId}" data-elfsight-app-lazy></div>`;
         
+        // Agregar clase al contenedor para quitar el grid y permitir que Elfsight controle el layout
+        galleryContainer.classList.add('elfsight-container');
+        
         // Asegurarnos de que el script de Elfsight esté cargado
         if (!document.querySelector('script[src*="elfsightcdn.com"]')) {
             const elfsightScript = document.createElement('script');
