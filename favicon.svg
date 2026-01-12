@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Fondo blanco (opcional, algunos navegadores lo necesitan) -->
+  <rect width="200" height="200" fill="white"/>
+  
+  <!-- Círculo amarillo (izquierda) -->
+  <circle cx="70" cy="80" r="38" fill="#FFD700"/>
+  
+  <!-- Triángulo morado (derecha, alineado con el círculo) -->
+  <path d="M 108 42 L 108 118 L 155 80 Z" fill="#6B46C1"/>
+  
+  <!-- Arco rosa (sonrisa, conectando ambos elementos) -->
+  <path d="M 45 125 Q 100 160 155 125" stroke="#EC4899" stroke-width="14" fill="none" stroke-linecap="round"/>
+</svg>
