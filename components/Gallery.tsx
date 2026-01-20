@@ -3,28 +3,16 @@ import React from 'react';
 export default function Gallery() {
   const images = [
     {
-      url: "/Recursos/Tallaeres/4594665.jpg",
+      url: "/Recursos/Tallaeres/file_0000000005e0720e814775645e46a179.png",
       alt: "Taller creativo 1"
     },
     {
-      url: "/Recursos/Tallaeres/4594666.jpg",
+      url: "/Recursos/Tallaeres/file_00000000859c71f584d21a7c25312572 (1).png",
       alt: "Taller creativo 2"
     },
     {
-      url: "/Recursos/Tallaeres/4594668.jpg",
+      url: "/Recursos/Tallaeres/InShot_20260119_205255811.jpg",
       alt: "Taller creativo 3"
-    },
-    {
-      url: "/Recursos/Tallaeres/4594670.jpg",
-      alt: "Taller creativo 4"
-    },
-    {
-      url: "/Recursos/Tallaeres/4594671.jpg",
-      alt: "Taller creativo 5"
-    },
-    {
-      url: "/Recursos/Tallaeres/4594672.jpg",
-      alt: "Taller creativo 6"
     }
   ];
 
@@ -49,7 +37,7 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Testimonial */}
+        {/* Testimonial - Hidden until real reviews are available
         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 max-w-4xl mx-auto relative">
           <span className="material-symbols-outlined absolute top-8 left-8 text-accent-pink/20 text-6xl">mood</span>
           <div className="relative z-10 flex flex-col items-center text-center">
@@ -69,6 +57,7 @@ export default function Gallery() {
             </div>
           </div>
         </div>
+        */}
       </div>
     </section>
   );

@@ -20,21 +20,21 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             <a className="text-text-dark hover:text-primary font-medium transition-colors" href="#methodology">
-              A jugar
+              Cómo jugamos
             </a>
             <a className="text-text-dark hover:text-primary font-medium transition-colors" href="#stages">
-              Nuestros rincones
+              Paso a paso
             </a>
             <a className="text-text-dark hover:text-primary font-medium transition-colors" href="#gallery">
               Galería
             </a>
-            <a className="text-text-dark hover:text-primary font-medium transition-colors" href="#booking">
-              ¡Quiero ir!
-            </a>
           </nav>
 
           {/* CTA Button */}
-          <button className="hidden md:flex items-center justify-center h-10 px-6 rounded-xl bg-accent-yellow text-primary text-sm font-bold shadow-sm hover:shadow-md hover:translate-y-[-1px] transition-all duration-200">
+          <button 
+            className="hidden md:flex items-center justify-center h-10 px-6 rounded-xl bg-accent-yellow text-primary text-sm font-bold shadow-sm hover:shadow-md hover:translate-y-[-1px] transition-all duration-200"
+            onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             ¡RESERVAR MI LUGAR!
           </button>
 
@@ -59,14 +59,14 @@ export default function Navbar() {
               href="#methodology"
               onClick={() => setMobileMenuOpen(false)}
             >
-              A jugar
+              Cómo jugamos
             </a>
             <a 
               className="text-text-dark hover:text-primary font-medium transition-colors" 
               href="#stages"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Nuestros rincones
+              Paso a paso
             </a>
             <a 
               className="text-text-dark hover:text-primary font-medium transition-colors" 
@@ -75,14 +75,13 @@ export default function Navbar() {
             >
               Galería
             </a>
-            <a 
-              className="text-text-dark hover:text-primary font-medium transition-colors" 
-              href="#booking"
-              onClick={() => setMobileMenuOpen(false)}
+            <button 
+              className="w-full h-12 rounded-xl bg-accent-yellow text-primary font-bold shadow-sm"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
-              ¡Quiero ir!
-            </a>
-            <button className="w-full h-12 rounded-xl bg-accent-yellow text-primary font-bold shadow-sm">
               ¡RESERVAR MI LUGAR!
             </button>
           </nav>

@@ -24,7 +24,9 @@ export default function App() {
       <a
         aria-label="Chat on WhatsApp"
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center group"
-        href="#"
+        href="https://wa.me/543513546513?text=¡Hola! Me gustaría recibir más información sobre los talleres de Creativa."
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <svg
           className="w-8 h-8 fill-current"

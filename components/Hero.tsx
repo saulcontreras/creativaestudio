@@ -3,7 +3,7 @@ import React from 'react';
 export default function Hero() {
   return (
     <section className="relative bg-background-soft overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 flex flex-col lg:flex-row items-center gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 flex flex-col lg:flex-row items-center gap-12">
         {/* Text Content */}
         <div className="flex-1 flex flex-col gap-6 z-10 text-center lg:text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-pink/10 text-accent-pink w-fit mx-auto lg:mx-0">
@@ -17,11 +17,17 @@ export default function Hero() {
             ¡Vení a jugar con colores, pinceles y figuras de yeso! En Creativa no hay reglas, solo ganas de ensuciarse las manos y pasar un rato increíble creando cosas únicas.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-            <button className="h-14 px-8 rounded-xl bg-accent-yellow text-primary text-lg font-bold shadow-lg shadow-accent-yellow/30 hover:shadow-xl hover:translate-y-[-2px] transition-all duration-300 flex items-center justify-center gap-2 group">
+            <button 
+              className="h-14 px-8 rounded-xl bg-accent-yellow text-primary text-lg font-bold shadow-lg shadow-accent-yellow/30 hover:shadow-xl hover:translate-y-[-2px] transition-all duration-300 flex items-center justify-center gap-2 group"
+              onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <span>¡QUIERO PINTAR!</span>
               <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">rocket_launch</span>
             </button>
-            <button className="h-14 px-8 rounded-xl bg-white text-primary border-2 border-primary/10 text-lg font-bold hover:bg-primary/5 transition-all duration-300 flex items-center justify-center">
+            <button 
+              className="h-14 px-8 rounded-xl bg-white text-primary border-2 border-primary/10 text-lg font-bold hover:bg-primary/5 transition-all duration-300 flex items-center justify-center"
+              onClick={() => document.getElementById('methodology')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Ver qué hacemos
             </button>
           </div>
@@ -37,10 +43,10 @@ export default function Hero() {
             <img
               alt="Niño pintando en Creativa Estudio"
               className="w-full h-[500px] object-cover"
-              src="/Recursos/Tallaeres/4594665.jpg"
+              src="/Recursos/Tallaeres/InShot_20260119_205255811.jpg"
             />
             
-            {/* Testimonial Badge */}
+            {/* Testimonial Badge - Hidden until real reviews are available
             <div className="absolute bottom-6 left-6 z-20 bg-white/95 backdrop-blur px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
               <div className="flex -space-x-3">
                 <img
@@ -67,6 +73,7 @@ export default function Hero() {
                 </div>
               </div>
             </div>
+            */}
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links 1 */}
+          {/* Links 1 - Hidden until content is ready
           <div>
             <h3 className="font-bold mb-4 text-accent-yellow uppercase tracking-wider text-xs">Explorar</h3>
             <ul className="space-y-2 text-sm text-white/80">
@@ -32,6 +32,7 @@ export default function Footer() {
               <li><a className="hover:text-white transition-colors" href="#">Nuestras figuras</a></li>
             </ul>
           </div>
+          */}
 
           {/* Links 2 */}
           <div>
@@ -43,7 +44,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-xs">mail</span>
-                creativaestudio.vdr@gmail.com
+                estudiocreativa.vdr@gmail.com
               </li>
             </ul>
           </div>

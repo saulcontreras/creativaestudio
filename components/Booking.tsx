@@ -380,7 +380,7 @@ export default function Booking() {
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
                     : 'bg-accent-yellow text-primary hover:shadow-lg'}`}
               >
-                {(!selectedDate || !selectedTime) ? 'Seleccioná fecha y horario' : '¡CONFIRMAR MI RESERVA!'}
+                {(!selectedDate || !selectedTime) ? 'Seleccioná fecha y horario' : 'CONFIRMAR RESERVA'}
               </button>
 
             </div>
