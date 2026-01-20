@@ -77,11 +77,12 @@ export default function Booking() {
 
   const availableTimes = getAvailableTimesForDate(selectedDate);
 
-  // Auto-select time if there's only one
+  // Auto-select time when date changes
   useEffect(() => {
-    if (availableTimes.length === 1) {
+    if (selectedDate && availableTimes.length > 0) {
+      // Auto-select the first available time when a date is selected
       setSelectedTime(availableTimes[0]);
-    } else {
+    } else if (!selectedDate) {
       setSelectedTime(null);
     }
   }, [selectedDate, events]);
@@ -214,12 +215,12 @@ export default function Booking() {
   };
 
   return (
-    <section id="booking" className="py-24 bg-white">
+    <section id="booking" className="py-12 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-primary rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+        <div className="bg-primary lg:bg-primary rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row">
           
-          {/* Left Panel - Info */}
-          <div className="p-10 lg:p-16 lg:w-1/3 flex flex-col justify-between text-white relative overflow-hidden">
+          {/* Left Panel - Info - Hidden on mobile */}
+          <div className="hidden lg:flex p-10 lg:p-16 lg:w-1/3 flex-col justify-between text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent-pink rounded-full blur-[80px] opacity-40 -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
             <div className="relative z-10">
               <h2 className="text-3xl lg:text-4xl font-bold mb-6">¡Asegurá tu lugar!</h2>
@@ -264,32 +265,62 @@ export default function Booking() {
           </div>
 
           {/* Right Panel - Calendar Widget */}
-          <div className="lg:w-2/3 bg-gray-50 p-8 lg:p-12">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div className="lg:w-2/3 bg-gray-50 lg:bg-gray-50 bg-white lg:p-12 p-0">
+            <div className="bg-white rounded-[2.5rem] lg:rounded-2xl shadow-sm lg:border border-gray-100 lg:p-6 p-0 flex flex-col min-h-[600px] sm:min-h-[700px] max-h-[900px] lg:h-auto lg:max-h-none max-w-[480px] lg:max-w-none mx-auto lg:mx-0 w-full relative overflow-y-auto lg:overflow-hidden">
               
-              <div className="flex items-center justify-between mb-8">
+              {/* Mobile Header */}
+              <div className="lg:hidden pt-8 pb-4 px-8 flex items-center justify-between flex-shrink-0">
+                <div>
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">Elige una fecha</span>
+                  <div className="flex items-center gap-2 mt-1">
+                    <h3 className="text-2xl font-extrabold text-primary">
+                      {currentMonth.toLocaleString('es-AR', { month: 'long', year: 'numeric' })}
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={prevMonth} className="size-10 rounded-full bg-gray-50 text-gray-600 hover:bg-primary/10 hover:text-primary flex items-center justify-center transition-colors">
+                    <span className="material-symbols-outlined text-xl">chevron_left</span>
+                  </button>
+                  <button onClick={nextMonth} className="size-10 rounded-full bg-gray-50 text-gray-600 hover:bg-primary/10 hover:text-primary flex items-center justify-center transition-colors">
+                    <span className="material-symbols-outlined text-xl">chevron_right</span>
+                  </button>
+                </div>
+              </div>
+              
+              {/* Desktop Header */}
+              <div className="hidden lg:flex items-center justify-between mb-8">
                 <h3 className="text-lg font-bold text-gray-800 uppercase tracking-wider">
                   {currentMonth.toLocaleString('es-AR', { month: 'long', year: 'numeric' })}
                 </h3>
                 <div className="flex gap-2">
                   <button onClick={prevMonth} className="p-2 hover:bg-gray-100 rounded-full text-gray-500 transition-colors">
-                    <span className="material-symbols-outlined">chevron_left</span>
+                    <span className="material-symbols-outlined text-xl">chevron_left</span>
                   </button>
                   <button onClick={nextMonth} className="p-2 hover:bg-gray-100 rounded-full text-gray-500 transition-colors">
-                    <span className="material-symbols-outlined">chevron_right</span>
+                    <span className="material-symbols-outlined text-xl">chevron_right</span>
                   </button>
                 </div>
               </div>
 
               {/* Days Header */}
-              <div className="grid grid-cols-7 mb-4 text-center">
-                {['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB', 'DOM'].map(day => (
-                  <span key={day} className="text-xs font-bold text-gray-400 uppercase">{day}</span>
+              <div className="grid grid-cols-7 px-6 lg:px-0 mb-2 lg:mb-4 text-center flex-shrink-0">
+                {['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB', 'DOM'].map((day, idx) => (
+                  <span 
+                    key={day} 
+                    className={`text-xs font-bold uppercase py-2 ${
+                      idx >= 5 ? 'text-accent-pink lg:text-gray-400' : 'text-gray-400'
+                    }`}
+                  >
+                    {day.slice(0, 3)}
+                  </span>
                 ))}
               </div>
 
               {/* Calendar Grid */}
-              <div className="grid grid-cols-7 gap-2 lg:gap-4 mb-8">
+              <div 
+                className="calendar-grid grid grid-cols-7 gap-y-2 gap-x-2 lg:gap-y-2 lg:gap-x-4 px-6 py-3 lg:px-0 mb-6 lg:mb-8 overflow-y-auto lg:overflow-visible scrollbar-hide lg:scrollbar-default flex-1 min-h-0"
+              >
                 {loading ? (
                   <div className="col-span-7 py-10 text-center text-gray-400 font-medium">Cargando fechas...</div>
                 ) : (
@@ -302,12 +333,20 @@ export default function Booking() {
                     
                     if (isFull || isNoWorkshop) {
                       return (
-                        <div key={idx} className="aspect-square rounded-xl bg-gray-50 flex flex-col items-center justify-center relative cursor-not-allowed opacity-60 border border-gray-100">
-                          <span className="text-sm font-bold text-gray-400">{item.date}</span>
-                          <span className={`text-[9px] px-1.5 py-0.5 rounded-full mt-1 ${isFull ? 'bg-red-50 text-red-600' : 'bg-gray-200 text-gray-500'}`}>
-                            {item.label}
-                          </span>
-                        </div>
+                        <button
+                          key={idx} 
+                          disabled
+                          className={`
+                            aspect-square rounded-full lg:rounded-xl
+                            bg-gray-50 flex flex-col items-center justify-center relative cursor-not-allowed 
+                            text-gray-300
+                            ${isFull 
+                              ? 'border-2 lg:border border-red-300 lg:border-gray-100' 
+                              : 'border border-gray-100'}
+                          `}
+                        >
+                          <span className="text-base font-medium lg:text-xs lg:font-bold text-gray-300">{item.date}</span>
+                        </button>
                       );
                     }
 
@@ -316,24 +355,41 @@ export default function Booking() {
                         key={idx} 
                         onClick={() => setSelectedDate(item.date)}
                         className={`
-                          aspect-square rounded-xl flex flex-col items-center justify-center transition-all group relative overflow-hidden
+                          aspect-square rounded-full lg:rounded-xl flex flex-col items-center justify-center 
+                          transition-all group relative overflow-hidden
                           ${isSelected 
-                            ? 'bg-primary text-white shadow-lg shadow-primary/30 transform scale-105' 
-                            : 'bg-white border border-gray-200 hover:border-primary hover:text-primary text-gray-700'}
+                            ? 'bg-primary text-white shadow-lg shadow-primary/40 lg:shadow-lg lg:shadow-primary/30 transform scale-105 lg:scale-105' 
+                            : item.urgent
+                            ? 'bg-white text-primary border-2 border-accent-yellow/30 lg:border lg:border-gray-200 hover:bg-gray-50 lg:hover:border-primary lg:hover:text-primary'
+                            : 'bg-white border-2 border-green-300 lg:border lg:border-gray-200 hover:bg-gray-50 lg:hover:border-primary lg:hover:text-primary text-gray-700'}
                         `}
                       >
                         {item.urgent && !isSelected && (
-                           <div className="absolute top-0 right-0 w-3 h-3 bg-accent-yellow rounded-bl-full"></div>
+                          <>
+                            <div className="absolute inset-0 rounded-full lg:hidden shadow-[0_0_15px_rgba(254,213,31,0.6)] bg-accent-yellow/5 pointer-events-none"></div>
+                          </>
                         )}
                         
-                        <span className="text-sm font-bold">{item.date}</span>
-                        
-                        <span className={`
-                          text-[9px] px-1.5 py-0.5 rounded-full mt-1
-                          ${isSelected ? 'bg-white/20' : (item.urgent ? 'bg-yellow-50 text-yellow-700 font-bold' : 'bg-green-50 text-green-600 font-medium')}
-                        `}>
-                          {item.label}
+                        <span className={`text-base font-medium lg:text-xs lg:font-bold leading-tight relative z-10 ${isSelected ? 'font-bold' : item.urgent ? 'text-primary font-bold' : ''}`}>
+                          {item.date}
                         </span>
+                        
+                        {item.urgent && !isSelected && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent-yellow mt-1 relative z-10"></div>
+                        )}
+                        
+                        {!item.urgent && !isSelected && (
+                          <span className={`
+                            text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5 rounded-full mt-1 sm:mt-1.5 leading-tight text-center hidden lg:block
+                            bg-green-50 text-green-600 font-medium
+                          `}>
+                            {item.label}
+                          </span>
+                        )}
+                        
+                        {isSelected && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-white mt-1 relative z-10"></div>
+                        )}
                       </button>
                     );
                   })
@@ -341,8 +397,8 @@ export default function Booking() {
               }
               </div>
 
-              {/* Time Selection */}
-              <div className="border-t border-gray-100 pt-6">
+              {/* Time Selection - Desktop */}
+              <div className="border-t border-gray-100 pt-6 px-6 lg:px-0 hidden lg:block">
                 <p className="text-sm font-bold text-gray-700 mb-3">
                   Horario para jugar ({selectedDate ? `${selectedDate} de ${currentMonth.toLocaleString('es-AR', { month: 'short' })}` : 'Seleccionar fecha'})
                 </p>
@@ -371,14 +427,65 @@ export default function Booking() {
                   )}
                 </div>
               </div>
+              
+              {/* Mobile: Simplified time display - Relative position below calendar */}
+              <div className="lg:hidden border-t border-gray-100 pt-6 px-8 pb-4 flex-shrink-0">
+                {selectedDate && availableTimes.length > 0 && (() => {
+                  const selectedItem = dates.find(d => d.date === selectedDate);
+                  return (
+                    <div className="mb-4">
+                      <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1">
+                        {new Date(currentMonth.getFullYear(), currentMonth.getMonth(), selectedDate).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric' }).toUpperCase()}
+                      </p>
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-2xl font-bold text-primary">
+                          Disponible
+                        </h3>
+                        {selectedItem?.urgent && (
+                          <div className="bg-accent-pink/10 text-accent-pink px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">local_fire_department</span>
+                            ¡Se agota!
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-lg font-semibold text-gray-800">{availableTimes[0]}</p>
+                    </div>
+                  );
+                })()}
+                {selectedDate && availableTimes.length === 0 && (
+                  <div className="mb-4">
+                    <p className="text-sm text-red-400 italic font-medium">Este día no tenemos talleres programados o ya están llenos.</p>
+                  </div>
+                )}
+              </div>
 
+              {/* Mobile: Bottom sheet style button */}
+              <div className={`lg:hidden mt-auto pt-4 px-8 pb-6 flex-shrink-0 ${selectedDate && availableTimes.length > 0 ? '' : 'border-t border-gray-100'}`}>
+                {(!selectedDate || availableTimes.length === 0) && (
+                  <div className="w-full flex justify-center mb-4 cursor-pointer">
+                    <div className="w-12 h-1.5 bg-gray-200 rounded-full"></div>
+                  </div>
+                )}
+                <button 
+                  onClick={handleConfirmReservation}
+                  disabled={!selectedDate || !selectedTime}
+                  className={`w-full h-14 font-bold rounded-xl shadow-lg transition-all text-sm uppercase tracking-wide active:scale-95 flex items-center justify-center
+                    ${(!selectedDate || !selectedTime) 
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
+                      : 'bg-accent-yellow text-primary shadow-accent-yellow/30 hover:shadow-accent-yellow/40 hover:-translate-y-0.5'}`}
+                >
+                  {(!selectedDate || !selectedTime) ? 'Seleccioná fecha y horario' : 'CONFIRMAR'}
+                </button>
+              </div>
+              
+              {/* Desktop: Regular button */}
               <button 
                 onClick={handleConfirmReservation}
                 disabled={!selectedDate || !selectedTime}
-                className={`w-full mt-8 h-12 font-bold rounded-xl shadow-md transition-all text-sm uppercase tracking-wide active:scale-95
+                className={`hidden lg:block w-full mt-8 h-12 font-bold rounded-xl shadow-lg transition-all text-sm uppercase tracking-wide active:scale-95 flex items-center justify-center
                   ${(!selectedDate || !selectedTime) 
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
-                    : 'bg-accent-yellow text-primary hover:shadow-lg'}`}
+                    : 'bg-accent-yellow text-primary shadow-accent-yellow/30 hover:shadow-accent-yellow/40 hover:-translate-y-0.5'}`}
               >
                 {(!selectedDate || !selectedTime) ? 'Seleccioná fecha y horario' : 'CONFIRMAR RESERVA'}
               </button>
