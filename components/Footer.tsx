@@ -44,7 +44,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-xs">mail</span>
-                estudiocreativa.vdr@gmail.com
+                info@creativaestudio.com.ar
               </li>
             </ul>
           </div>
